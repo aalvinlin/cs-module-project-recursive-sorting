@@ -1,13 +1,6 @@
 # TO-DO: complete the helper function below to merge 2 sorted arrays
 def merge(array_left, array_right):
 
-    # if an array is empty, return the other
-    if not array_left:
-        return array_right
-
-    if not array_right:
-        return array_left
-
     total_entries = len(array_left) + len(array_right)
     merged_array = [0] * total_entries
 
@@ -15,31 +8,37 @@ def merge(array_left, array_right):
     next_smallest_left_index = 0
     next_smallest_right_index = 0
 
-    print("    merging...", array_left, array_right, total_entries)
+    print("  about to merge the two arrays", array_left, array_right, "with", total_entries, "entries total")
 
     for i in range(total_entries):
 
+        print("    adding element", i, "to merged_array", array_left, array_right, merged_array)
+        print("    smallest elements in each array:", array_left[next_smallest_left_index], array_right[next_smallest_right_index])
+        print("--- decisions below ---")
+
         # if the array_left has no more elements to add, append the rest of array_right and return
         if next_smallest_left_index >= len(array_left):
-            print("nothing left on the left...")
+            print("    nothing left on the left...", merged_array)
             return merged_array.extend(array_right[next_smallest_right_index:])
 
         # if the array_right has no more elements to add, append the rest of array_left and return
         elif next_smallest_right_index >= len(array_right):
-            print("nothing left on the right...")
+            print("    nothing left on the right...", merged_array)
             return merged_array.extend(array_left[next_smallest_left_index:])
 
         # add an entry from the left array if the left value is smaller
         elif array_left[next_smallest_left_index] < array_right[next_smallest_right_index]:
             merged_array[i] = array_left[next_smallest_left_index]
             next_smallest_left_index += 1
+            print("    left value is smaller...", merged_array)
         
         # add an entry from the right array if the right value is smaller
         else:
             merged_array[i] = array_right[next_smallest_right_index]
             next_smallest_right_index += 1
+            print("    right value is smaller...", merged_array)
 
-    print("    merged array is", merged_array)
+    print("  merged array is", merged_array)
 
     return merged_array
 
@@ -60,6 +59,13 @@ def merge_sort(arr):
     right_half = arr[start_of_right_half:]
 
     print("  left and right are", left_half, right_half)
+
+    # if an array is empty, return the other
+    # if not left_half:
+    #     return right_half
+
+    # if not right_half:
+    #     return left_half
 
     return merge(merge_sort(left_half), merge_sort(right_half))
 
