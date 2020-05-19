@@ -27,20 +27,23 @@ def merge(array_left, array_right):
             merged_array[i] = next_smallest_value_in_right_array
             next_smallest_right_index += 1
 
-    return merged_arr
+    return merged_array
 
 
 # TO-DO: implement the Merge Sort function below USING RECURSION
 def merge_sort(arr):
+
+    # base case: an array of a single element is sorted
+    if len(arr) == 1:
+        return arr
     
+    # divide array into left and right halves
     start_of_right_half = len(arr) // 2
 
     left_half = arr[0:start_of_right_half - 1]
     right_half = arr[start_of_right_half:]
 
-
-
-    return arr
+    return merge(merge_sort(left_half, right_half))
 
 
 # implement an in-place merge sort algorithm
