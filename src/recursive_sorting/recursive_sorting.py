@@ -1,6 +1,13 @@
 # TO-DO: complete the helper function below to merge 2 sorted arrays
 def merge(array_left, array_right):
 
+    # if an array is empty, return the other
+    if not array_left:
+        return array_right
+
+    if not array_right:
+        return array_left
+
     total_entries = len(array_left) + len(array_right)
     merged_array = [0] * total_entries
 
@@ -14,10 +21,12 @@ def merge(array_left, array_right):
 
         # if the array_left has no more elements to add, append the rest of array_right and return
         if next_smallest_left_index >= len(array_left):
+            print("nothing left on the left...")
             return merged_array.extend(array_right[next_smallest_right_index:])
 
         # if the array_right has no more elements to add, append the rest of array_left and return
         elif next_smallest_right_index >= len(array_right):
+            print("nothing left on the right...")
             return merged_array.extend(array_left[next_smallest_left_index:])
 
         # add an entry from the left array if the left value is smaller
