@@ -54,20 +54,36 @@ def merge_sort(arr):
 
     return merge(merge_sort(left_half), merge_sort(right_half))
 
-# implement an in-place merge sort algorithm
+# ===================== in-place merge sort algorithm ===================== 
+
+# shift every element from start_index to end_index, inclusive, to the right by one.
+# The element at index (end_index + 1) will be overwritten.
+# There will be two copies of the element at start_index when finished: at start_index and at (start_index + 1).
+def shift_section_one_space_right(arr, start_index, end_index):
+    
+    for i in range (end_index, start_index - 1, -1):
+        arr[i + 1] = arr[i]
+
 def merge_in_place(arr, start, mid, end):
-    # Your code here
-
-
-    return arr
-
-
-def merge_sort_in_place(arr, l, r):
-    # Your code here
-
+    
+    
 
     return arr
 
+
+def merge_sort_in_place(arr, left_half_start_index, right_half_end_index):
+    
+    # base case: an array of a single element is sorted
+    if len(arr) <= 1:
+        return arr
+
+    # divide array into left and right halves
+    start_of_right_half = len(arr) // 2 + left_half_start_index
+
+    left_half = arr[left_half_start_index:start_of_right_half]
+    right_half = arr[start_of_right_half:right_half_end_index]
+
+    return merge_in_place(merge_sort_in_place(left_half), start_of_right_half, merge_sort(right_half))
 
 # STRETCH: implement the Timsort function below
 # hint: check out https://github.com/python/cpython/blob/master/Objects/listsort.txt
