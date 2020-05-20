@@ -13,18 +13,32 @@ def merge(array_left, array_right):
     for i in range(total_entries):
 
         print("    adding element", i, "to merged_array", array_left, array_right, merged_array)
-        print("    smallest elements in each array:", array_left[next_smallest_left_index], array_right[next_smallest_right_index])
+        print("    next smallest indices:", next_smallest_left_index, next_smallest_right_index)
+        # print("    smallest elements in each array:", array_left[next_smallest_left_index], array_right[next_smallest_right_index])
         print("--- decisions below ---")
 
         # if the array_left has no more elements to add, append the rest of array_right and return
-        if next_smallest_left_index >= len(array_left):
-            print("    nothing left on the left...", merged_array)
-            return merged_array.extend(array_right[next_smallest_right_index:])
+        if next_smallest_left_index == len(array_left):
+            print("    nothing left on the left...", merged_array, array_left[next_smallest_left_index:], array_right[next_smallest_right_index:])
+
+            while next_smallest_right_index < len(array_right):
+                merged_array[i] = array_right[next_smallest_right_index]
+                i += 1
+                next_smallest_right_index += 1
+
+            return merged_array
+            # return merged_array.extend(array_right[next_smallest_right_index:])
 
         # if the array_right has no more elements to add, append the rest of array_left and return
-        elif next_smallest_right_index >= len(array_right):
+        elif next_smallest_right_index == len(array_right):
             print("    nothing left on the right...", merged_array)
-            return merged_array.extend(array_left[next_smallest_left_index:])
+
+            while next_smallest_left_index < len(array_left):
+                merged_array[i] = array_left[next_smallest_left_index]
+                i += 1
+                next_smallest_left_index += 1
+
+            # return merged_array.extend(array_left[next_smallest_left_index:])
 
         # add an entry from the left array if the left value is smaller
         elif array_left[next_smallest_left_index] < array_right[next_smallest_right_index]:
