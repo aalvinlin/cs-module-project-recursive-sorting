@@ -10,7 +10,7 @@ def merge(array_left, array_right):
 
     for i in range(total_entries):
 
-        # if the array_left has no more elements to add, append the rest of array_right and return
+        # if array_left has no more elements to add, append the rest of array_right
         if next_smallest_left_index == len(array_left):
 
             while next_smallest_right_index < len(array_right):
@@ -18,9 +18,7 @@ def merge(array_left, array_right):
                 i += 1
                 next_smallest_right_index += 1
 
-            return merged_array
-
-        # if the array_right has no more elements to add, append the rest of array_left and return
+        # if array_right has no more elements to add, append the rest of array_left
         elif next_smallest_right_index == len(array_right):
 
             while next_smallest_left_index < len(array_left):
