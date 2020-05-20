@@ -64,6 +64,14 @@ def shift_section_one_space_right(arr, start_index, end_index):
     for i in range (end_index, start_index - 1, -1):
         arr[i + 1] = arr[i]
 
+# shift every element from start_index to end_index, inclusive, to the left by n spaces.
+# The element at index (start_index - 1) will be overwritten.
+# There will be two copies of the element at end_index when finished: at end_index and at (end_index + 1).
+# def shift_section_one_space_left(arr, start_index, end_index):
+    
+#     for i in range (start_index, end_index + 1):
+#         arr[i - 1] = arr[i]
+
 def merge_in_place(arr, start, mid, end):
     
     # initialize pointers for start of each array
@@ -75,21 +83,25 @@ def merge_in_place(arr, start, mid, end):
 
     for i in range(total_elements):
 
-        # if the left array has no more elements to add, append the rest of the array on the right
-        if next_smallest_left_index == mid:
+        ## if the left array has no more elements to add, there is nothing left to do
+        ## (the remaining elements on the right are already in the correct spots)
 
-            while next_smallest_right_index < end:
-                arr[start + i] = arr[next_smallest_right_index]
-                i += 1
-                next_smallest_right_index += 1
 
-        # if the right array has no more elements to add, append the rest of the array on the left
-        elif next_smallest_right_index == end:
+        # if the next smallest right index is the end of the array, there is nothing left to do
+        # (all other elements would have been placed already). Any unprocessed elements would automatically be in the right place.
+        if next_smallest_right_index == end:
+            return
 
-            while next_smallest_left_index < mid:
-                arr[start + i] = arr[next_smallest_left_index]
-                i += 1
-                next_smallest_left_index += 1
+        # # if the right array has no more elements to add, add the rest of the array on the left
+        # # this will require shifting elements over to the left to accomodate the incoming values
+        # elif next_smallest_right_index == end:
+
+        #     # save the value on the right (it will be overriden in a moment)
+        #     value_to_move = arr[next_smallest_right_index]
+
+        #     # shift the array one spot over to make room for the incoming value (value_to_move)
+        #     # assumption is that the array only needs to be shifted over one
+        #     shift_section_one_space_left(arr, mid, end_index - 1)
 
         # add an entry from the left array if the left value is smaller
         elif arr[next_smallest_left_index] < arr[next_smallest_right_index]:
