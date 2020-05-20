@@ -135,7 +135,9 @@ def merge_in_place(arr, start, mid, end):
 
 
 def merge_sort_in_place(arr, left_half_start_index, right_half_end_index):
-    
+
+    print("section of array: ", arr)
+
     # base case: an array of a single element is sorted
     if len(arr) <= 1:
         return arr
@@ -143,7 +145,7 @@ def merge_sort_in_place(arr, left_half_start_index, right_half_end_index):
     # divide array into left and right halves
     start_of_right_half = len(arr) // 2 + left_half_start_index
 
-    return merge_in_place(merge_sort_in_place(left_half_start_index, start_of_right_half, right_half_end_index))
+    return merge_in_place(merge_sort_in_place(arr, left_half_start_index, start_of_right_half - 1), start_of_right_half, right_half_end_index)
 
 # STRETCH: implement the Timsort function below
 # hint: check out https://github.com/python/cpython/blob/master/Objects/listsort.txt
