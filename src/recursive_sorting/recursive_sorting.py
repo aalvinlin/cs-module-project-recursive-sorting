@@ -93,14 +93,31 @@ def merge_in_place(arr, start, mid, end):
 
         # add an entry from the left array if the left value is smaller
         elif arr[next_smallest_left_index] < arr[next_smallest_right_index]:
-            
-            # merged_array[i] = array_left[next_smallest_left_index]
-            # next_smallest_left_index += 1
+
+            # if the value on the left is smaller, then it is in the right place already
+
+            # update the pointer for the next smallest value on the left
+            next_smallest_left_index += 1
         
         # add an entry from the right array if the right value is smaller
         else:
-            # merged_array[i] = array_right[next_smallest_right_index]
-            # next_smallest_right_index += 1
+
+            # if the value on the right is smaller, then it needs to go in the spot currently occupied by the next smallest value on the left
+
+            # save the value on the right (it will be overriden in a moment)
+            value_to_move = arr[next_smallest_right_index]
+
+            # shift the array one spot over to make room for the incoming value (value_to_move)
+            shift_section_one_space_right(arr, next_smallest_left_index, next_smallest_right_index - 1)
+           
+            # move the pointer to the next smaller value on the right
+            next_smallest_right_index += 1
+
+            # place value_to_move in the spot currently occupied by the next smaller value on the left
+            arr[next_smallest_left_index] = value_to_move
+
+            # move the pointer to the next smaller value on the left
+            next_smallest_left_index += 1
 
     return arr
 
