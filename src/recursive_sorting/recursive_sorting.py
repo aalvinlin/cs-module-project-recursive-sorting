@@ -66,7 +66,41 @@ def shift_section_one_space_right(arr, start_index, end_index):
 
 def merge_in_place(arr, start, mid, end):
     
-    
+    # initialize pointers for start of each array
+    next_smallest_left_index = start
+    next_smallest_right_index = mid
+
+    # determine the total number of elements in this section
+    total_elements = (end - start) + 1
+
+    for i in range(total_elements):
+
+        # if the left array has no more elements to add, append the rest of the array on the right
+        if next_smallest_left_index == mid:
+
+            while next_smallest_right_index < end:
+                arr[start + i] = arr[next_smallest_right_index]
+                i += 1
+                next_smallest_right_index += 1
+
+        # if the right array has no more elements to add, append the rest of the array on the left
+        elif next_smallest_right_index == end:
+
+            while next_smallest_left_index < mid:
+                arr[start + i] = arr[next_smallest_left_index]
+                i += 1
+                next_smallest_left_index += 1
+
+        # add an entry from the left array if the left value is smaller
+        elif arr[next_smallest_left_index] < arr[next_smallest_right_index]:
+            
+            # merged_array[i] = array_left[next_smallest_left_index]
+            # next_smallest_left_index += 1
+        
+        # add an entry from the right array if the right value is smaller
+        else:
+            # merged_array[i] = array_right[next_smallest_right_index]
+            # next_smallest_right_index += 1
 
     return arr
 
@@ -80,10 +114,7 @@ def merge_sort_in_place(arr, left_half_start_index, right_half_end_index):
     # divide array into left and right halves
     start_of_right_half = len(arr) // 2 + left_half_start_index
 
-    left_half = arr[left_half_start_index:start_of_right_half]
-    right_half = arr[start_of_right_half:right_half_end_index]
-
-    return merge_in_place(merge_sort_in_place(left_half), start_of_right_half, merge_sort(right_half))
+    return merge_in_place(merge_sort_in_place(left_half_start_index, start_of_right_half, right_half_end_index))
 
 # STRETCH: implement the Timsort function below
 # hint: check out https://github.com/python/cpython/blob/master/Objects/listsort.txt
